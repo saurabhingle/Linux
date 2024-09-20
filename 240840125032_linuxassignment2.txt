@@ -1,0 +1,70 @@
+Script :-
+
+#!/bin/bash
+
+while true ;do
+i=7
+	while [[ $i != 6 ]];do
+        	echo "Choice the option"
+        	echo "1.Make a file"
+        	echo "2.Display contents"
+       		 echo "3.Copy file"
+        	echo "4.Rename the file"
+       		 echo "5.Delete the file"
+        	echo "6.Exit"
+
+		read -p "Enter Choice : " ch
+
+        	if [[ $ch == 1 ]];then
+			read -p "Enter File Name : " name
+			if [ -f $name ];then
+				echo "File Exists"
+			else
+				read -p "Enter Data :" fdata
+				echo "$fdata" > $name
+			fi
+		elif [[ $ch == 2 ]];then
+			read -p "Enter File Name : " n1
+			if [[ -f $n1 ]];then
+				cat $n1
+			else 
+				echo "File does not exist"
+			fi
+		elif [[ $ch == 3 ]];then
+			read -p "Enter the Name of Source File  : " sou
+			if [[ -f $sou && -r $sou ]];then
+			        read -p "Enter the Name of Targtet File : " tar	
+				if [[ -f $tar ]];then
+					cat $tar
+				else
+					cat $sou >> $tar
+				fi
+			else
+				echo "Source file does not exist"
+			fi
+		elif [[ $ch == 4 ]];then
+			read -p "Enter File Name : " rn
+			read -p "Enter New Name  : " rn1
+			if [[ -f $rn ]];then
+				mv $rn $rn1
+			else
+				echo "File Does not Exists "
+			fi
+		elif [[ $ch == 5 ]];then
+			read -p "Enter File name : " dn
+			if [[ -f $dn && -w $dn ]];then
+				read -p "To Confrom Delete Enter 1 or 0 to cancel" ce
+				if [[ $ce == 1 ]];then
+					rm -fv dn
+				fi
+			else
+				echo "File not Exist or Writeable"
+			fi
+		elif [[ $ch == 6 ]];then
+			exit
+		fi
+	done
+exit
+done
+
+
